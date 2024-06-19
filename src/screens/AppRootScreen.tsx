@@ -1,0 +1,110 @@
+import React from 'react';
+import LoginScreen from './LoginScreen';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {RootStackParamList, RootTabParamList} from '@/types/reactNavigation';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import useAppSelector from '@/utils/hooks/useAppSelector';
+import HomeScreen from './HomeScreen';
+import NewsScreen from './NewsScreen';
+import Fonts from '@/assets/styles/fonts';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import ProfileScreen from './ProfileScreen';
+import {StyleProp, TextStyle} from 'react-native';
+import SelfAssessmentScreen from './HomeScreen/SelfAssessmentScreen';
+import {stackNavigationAnimationAnimationConfig} from '@/utils/configs/stackNavigationAnimationConfig';
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+const Tab = createBottomTabNavigator<RootTabParamList>();
+
+const tabBarLabelStyle: StyleProp<TextStyle> = {
+  fontFamily: Fonts.InterSemiBold,
+};
+
+const MenuIconComponent = ({focused}: {focused: boolean}) => {
+  return (
+    <Icon name={focused ? 'home-variant' : 'home-variant-outline'} size={28} />
+  );
+};
+const NewsIconComponent = ({focused}: {focused: boolean}) => {
+  return <Icon name={focused ? 'text-box' : 'text-box-outline'} size={28} />;
+};
+const ProfileIconComponent = ({focused}: {focused: boolean}) => {
+  return (
+    <Icon
+      name={focused ? 'account-circle' : 'account-circle-outline'}
+      size={28}
+    />
+  );
+};
+
+const AuthNavigator = () => (
+  <Stack.Navigator>
+    <Stack.Screen
+      options={{
+        headerShown: false,
+      }}
+      name="Login"
+      component={LoginScreen}
+    />
+  </Stack.Navigator>
+);
+
+const HomeTabList = () => (
+  <Tab.Navigator
+    screenOptions={{
+      tabBarStyle: {
+        height: 64,
+      },
+      tabBarItemStyle: {paddingVertical: 8},
+      tabBarLabelStyle,
+      headerShown: false,
+    }}>
+    <Tab.Screen
+      options={{
+        tabBarIcon: MenuIconComponent,
+        tabBarLabel: 'Home',
+      }}
+      name="Main"
+      component={HomeScreen}
+    />
+    <Tab.Screen
+      options={{
+        tabBarIcon: NewsIconComponent,
+        tabBarLabel: 'Artikel',
+      }}
+      name="News"
+      component={NewsScreen}
+    />
+    <Tab.Screen
+      options={{
+        tabBarIcon: ProfileIconComponent,
+        tabBarLabel: 'Profil',
+      }}
+      name="Profile"
+      component={ProfileScreen}
+    />
+  </Tab.Navigator>
+);
+const MainNavigator = () => (
+  <Stack.Navigator>
+    <Stack.Screen
+      name="Home"
+      component={HomeTabList}
+      options={{
+        headerShown: false,
+      }}
+    />
+    <Stack.Screen
+      name="SelfAssessment"
+      component={SelfAssessmentScreen}
+      options={{...stackNavigationAnimationAnimationConfig}}
+    />
+  </Stack.Navigator>
+);
+
+const AppRootScreen = () => {
+  const {isLoggedIn} = useAppSelector(state => state.authSlice);
+  return isLoggedIn ? <MainNavigator /> : <AuthNavigator />;
+};
+
+export default AppRootScreen;
