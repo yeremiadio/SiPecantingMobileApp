@@ -10,7 +10,13 @@ const FixedBottom = ({children}: Props) => {
   const theme = useTheme();
   return (
     <View
-      style={[styles.container, {borderColor: theme.colors.surfaceVariant}]}>
+      style={[
+        styles.container,
+        {
+          borderColor: theme.colors.surfaceVariant,
+          backgroundColor: theme.colors.background,
+        },
+      ]}>
       {children}
     </View>
   );
@@ -29,5 +35,6 @@ const styles = StyleSheet.create({
     flex: 1,
     borderTopWidth: 1,
     borderStyle: 'solid',
+    zIndex: 99,
   },
 });
