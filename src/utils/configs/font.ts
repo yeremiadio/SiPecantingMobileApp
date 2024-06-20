@@ -1,0 +1,113 @@
+import Fonts from '@/assets/styles/fonts';
+import {
+  MD3Type,
+  MD3TypescaleKey,
+} from 'react-native-paper/lib/typescript/types';
+
+export const fontConfig: Partial<Record<MD3TypescaleKey, Partial<MD3Type>>> = {
+  displaySmall: {
+    fontFamily: Fonts.InterRegular,
+    fontSize: 36,
+    fontWeight: '400',
+    letterSpacing: 0,
+    lineHeight: 44,
+  },
+  displayMedium: {
+    fontFamily: Fonts.InterRegular,
+    fontSize: 45,
+    fontWeight: '400',
+    letterSpacing: 0,
+    lineHeight: 52,
+  },
+  displayLarge: {
+    fontFamily: Fonts.InterRegular,
+    fontSize: 57,
+    fontWeight: '400',
+    letterSpacing: 0,
+    lineHeight: 64,
+  },
+  headlineSmall: {
+    fontFamily: Fonts.InterRegular,
+    fontSize: 24,
+    fontWeight: '400',
+    letterSpacing: 0,
+    lineHeight: 32,
+  },
+  headlineMedium: {
+    fontFamily: Fonts.InterMedium,
+    fontSize: 28,
+    fontWeight: '400',
+    letterSpacing: 0,
+    lineHeight: 36,
+  },
+  headlineLarge: {
+    fontFamily: Fonts.InterBold,
+    fontSize: 32,
+    fontWeight: '400',
+    letterSpacing: 0,
+    lineHeight: 40,
+  },
+  titleSmall: {
+    fontFamily: Fonts.InterRegular,
+    fontSize: 14,
+    fontWeight: '500',
+    letterSpacing: 0.1,
+    lineHeight: 20,
+  },
+  titleMedium: {
+    fontFamily: Fonts.InterMedium,
+    fontSize: 16,
+    fontWeight: '500',
+    letterSpacing: 0.15,
+    lineHeight: 24,
+  },
+  titleLarge: {
+    fontFamily: Fonts.InterSemiBold,
+    fontSize: 22,
+    fontWeight: '400',
+    letterSpacing: 0,
+    lineHeight: 28,
+  },
+  labelSmall: {
+    fontFamily: Fonts.InterRegular,
+    fontSize: 11,
+    fontWeight: '500',
+    letterSpacing: 0.5,
+    lineHeight: 16,
+  },
+  labelMedium: {
+    fontFamily: Fonts.InterMedium,
+    fontSize: 12,
+    fontWeight: '500',
+    letterSpacing: 0.5,
+    lineHeight: 16,
+  },
+  labelLarge: {
+    fontFamily: Fonts.InterBold,
+    fontSize: 14,
+    fontWeight: '500',
+    letterSpacing: 0.1,
+    lineHeight: 20,
+  },
+  bodySmall: {
+    fontFamily: Fonts.InterRegular,
+    fontSize: 12,
+    fontWeight: '400',
+    letterSpacing: 0.4,
+    lineHeight: 16,
+  },
+  bodyMedium: {
+    fontFamily: Fonts.InterRegular,
+    fontSize: 14,
+    fontWeight: '400',
+    letterSpacing: 0.25,
+    lineHeight: 20,
+  },
+  bodyLarge: {
+    fontFamily: Fonts.InterRegular,
+    fontSize: 16,
+    fontWeight: '400',
+    letterSpacing: 0.15,
+    lineHeight: 24,
+  },
+} as const;
