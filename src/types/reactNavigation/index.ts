@@ -3,7 +3,9 @@ export type RootStackParamList = {
   Home: undefined;
   SelfAssessment: undefined;
   NewsList: undefined;
-  NewsDetail: undefined;
+  NewsDetail: {
+    id?: number;
+  };
 };
 export type RootTabParamList = {
   Main: undefined;
