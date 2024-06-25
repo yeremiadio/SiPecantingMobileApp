@@ -13,30 +13,6 @@ import {articleListDummies} from '@/utils/dummies/articleDummies';
 
 const NewsScreen = () => {
   const dummyData = articleListDummies;
-
-  // const dummyDataBanner = [
-  //   {
-  //     id: 1,
-  //     imageUrl: require('@/assets/images/news-3-1.jpg'),
-  //     duration: 5,
-  //     title:
-  //       'Tingkat Stunting Wonogiri Tinggal 8 Persen, Bupati Jekek: 2024 Zero F',
-  //   },
-  //   {
-  //     id: 2,
-  //     imageUrl: require('@/assets/images/news-1-1.jpg'),
-  //     duration: 10,
-  //     title:
-  //       'Pengukuran Serentak Intervensi Stunting Baru Capai Separuh dari Target',
-  //   },
-  //   {
-  //     id: 3,
-  //     imageUrl: require('@/assets/images/news-2-1.jpeg'),
-  //     duration: 2,
-  //     title: 'Lorem ipsum dolor sit amet erat, consectetur adipiscing elit',
-  //   },
-  // ];
-
   const [refreshing, setRefreshing] = React.useState(false);
 
   const onRefresh = React.useCallback(() => {
@@ -53,22 +29,9 @@ const NewsScreen = () => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }>
         <View>
-          {/* <Text variant="titleLarge" style={styles.sectionHeader}>
-            Breaking News
-          </Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {dummyDataBanner.map(item => (
-              <BreakingNewsBanner
-                key={item.id}
-                imageUrl={item.imageUrl}
-                duration={item.duration}
-                title={item.title}
-              />
-            ))}
-          </ScrollView> */}
           <View style={styles.sectionHeaderWrapper}>
             <Text variant="titleLarge" style={styles.sectionHeader}>
-              Explore
+              Rekomendasi anda
             </Text>
             <Text
               variant="titleMedium"

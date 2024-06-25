@@ -89,6 +89,8 @@ const HomeTabList = () => (
     <Tab.Screen
       options={{
         tabBarIcon: NewsIconComponent,
+        headerTitle: 'Artikel',
+        tabBarLabel: 'Konten',
       }}
       name="News"
       component={NewsScreen}

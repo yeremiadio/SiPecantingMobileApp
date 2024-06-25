@@ -97,13 +97,16 @@ const DetailNewsScreen = ({route, navigation}: Props) => {
         contentContainerStyle={{
           borderTopRightRadius: 18,
           borderTopLeftRadius: 18,
-          // marginBottom: 16,
-          bottom: 8,
+          bottom: 12,
         }}
         stickyHeaderHeight={56}
         renderBackground={() => (
           <Animated.Image
-            source={detailNews?.imageUrl}
+            source={
+              detailNews?.isExternalImage
+                ? {uri: detailNews.imageUrl}
+                : detailNews?.imageUrl
+            }
             style={[styles.image]}
           />
         )}

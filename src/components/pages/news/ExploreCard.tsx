@@ -6,11 +6,12 @@ import {useNavigation} from '@react-navigation/native';
 
 type Props = {
   id: number;
-  imageUrl: string;
+  imageUrl?: string;
   caption: string;
   title: string;
   duration: string;
   category: string;
+  isExternalImage?: boolean;
 };
 
 const ExploreCard = ({
@@ -20,6 +21,7 @@ const ExploreCard = ({
   category,
   caption,
   imageUrl,
+  isExternalImage,
 }: Props) => {
   const navigation = useNavigation();
   return (
@@ -30,7 +32,11 @@ const ExploreCard = ({
         <Image
           style={styles.cardImage}
           alt="explore-card"
-          source={imageUrl || require('@/assets/images/no_image.jpg')}
+          source={
+            isExternalImage
+              ? {uri: imageUrl}
+              : imageUrl || require('@/assets/images/no_image.jpg')
+          }
         />
         {/* <View></View> */}
         <View style={styles.cardContentWrapper}>
