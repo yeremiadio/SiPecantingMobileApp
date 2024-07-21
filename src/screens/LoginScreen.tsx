@@ -1,22 +1,57 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 import Fonts from '@/assets/styles/fonts';
 
-import {useAppDispatch} from '@/store';
-import {signIn} from '@/store/slices/authSlice';
-
 import {RootStackParamList} from '@/types/reactNavigation';
 import {Button, Text} from 'react-native-paper';
 import InputText from '@/components/inputs/InputText';
 import IllustationMotherSvg from '@/assets/svg/Motherhood-amico.svg';
+import {login} from '@/api/auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useAppDispatch} from '@/store';
+import {signIn} from '@/store/slices/authSlice';
+import {getUserDetail} from '@/api/user';
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
 const LoginScreen = (_: Props) => {
+  const [email, setEmail] = useState<string>('pecantingadmin@gmail.com');
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [password, setPassword] = useState<string>('password1234');
   const dispatch = useAppDispatch();
-  const handleLogin = () => {
-    dispatch(signIn());
+  const handleLogin = async () => {
+    setIsSubmitting(true);
+    await login({email: email, password: password})
+      .then(async response => {
+        try {
+          const authData = response.data;
+          await AsyncStorage.setItem('token', authData.token);
+          await AsyncStorage.setItem('userId', authData.id.toString());
+          await getUserDetail({id: authData.id})
+            .then(responseUserData => {
+              setIsSubmitting(false);
+              const user = responseUserData.data.data;
+              dispatch(
+                signIn({
+                  id: authData.id,
+                  isLoggedIn: !!authData.token,
+                  fullName: user.fullName,
+                }),
+              );
+            })
+            .catch(() => setIsSubmitting(false));
+        } catch (error) {
+          console.log(error);
+        }
+      })
+      .catch(error => {
+        console.log(error);
+        setIsSubmitting(false);
+      })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
   };
   return (
     <View style={styles.loginContainer}>
@@ -37,12 +72,16 @@ const LoginScreen = (_: Props) => {
           <InputText
             label="Email"
             mode="outlined"
+            value={email}
+            onChangeText={(value: string) => setEmail(value)}
             placeholder="Please enter your email..."
           />
           <InputText
             label="Password"
             mode="outlined"
             secureTextEntry
+            value={password}
+            onChangeText={(value: string) => setPassword(value)}
             placeholder="Please enter your password..."
           />
         </View>
@@ -50,6 +89,7 @@ const LoginScreen = (_: Props) => {
           mode="contained"
           onPress={handleLogin}
           style={{marginTop: 16}}
+          disabled={!email || !password || isSubmitting}
           contentStyle={{height: 48}}
           theme={{roundness: 10}}>
           Log in
