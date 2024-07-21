@@ -11,6 +11,7 @@ import SuccessStuntingIcon from '@/assets/svg/success-stunting.svg';
 import RembukStuntingIcon from '@/assets/svg/rembuk-stunting.svg';
 import CallCenterIcon from '@/assets/svg/call-center.svg';
 import GridView from '@/components/GridView';
+import useAppSelector from '@/utils/hooks/useAppSelector';
 type Props = CompositeScreenProps<
   BottomTabScreenProps<RootTabParamList, 'Main'>,
   NativeStackScreenProps<RootStackParamList, 'Home'>
@@ -18,6 +19,7 @@ type Props = CompositeScreenProps<
 
 const HomeScreen = ({navigation}: Props) => {
   const theme = useTheme();
+  const {fullName} = useAppSelector(state => state.authSlice);
   const viewStyle: StyleProp<ViewStyle> = {
     backgroundColor: theme.colors.secondaryContainer,
   };
@@ -84,7 +86,7 @@ const HomeScreen = ({navigation}: Props) => {
             marginBottom: 8,
           }}>
           <Text variant="headlineSmall" style={{fontFamily: Fonts.InterBold}}>
-            Selamat datang,
+            Selamat datang, {fullName ?? ''}
           </Text>
           <Text variant="bodyMedium">
             Silahkan pilih menu untuk akses fitur kami
