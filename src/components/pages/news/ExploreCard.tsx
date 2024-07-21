@@ -35,7 +35,7 @@ const ExploreCard = ({
           source={
             isExternalImage
               ? {uri: imageUrl}
-              : imageUrl || require('@/assets/images/no_image.jpg')
+              : imageUrl ?? require('@/assets/images/no_image.jpg')
           }
         />
         {/* <View></View> */}
