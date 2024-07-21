@@ -6,6 +6,10 @@ declare global {
   }
 }
 
+declare module '@env' {
+  export const BASE_URL: string;
+}
+
 declare module '*.png' {
   export default '' as string;
 }
