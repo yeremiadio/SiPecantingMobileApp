@@ -2,42 +2,7 @@ const {getDefaultConfig, mergeConfig} = require('@react-native/metro-config');
 
 const defaultConfig = getDefaultConfig(__dirname);
 
-//@ts-ignore
-const assetExts = [
-  // Image formats
-  'bmp',
-  'gif',
-  'jpg',
-  'jpeg',
-  'png',
-  'psd',
-  'svg',
-  'webp',
-  // Video formats
-  'm4v',
-  'mov',
-  'mp4',
-  'mpeg',
-  'mpg',
-  'webm',
-  // Audio formats
-  'aac',
-  'aiff',
-  'caf',
-  'm4a',
-  'mp3',
-  'wav',
-  // Document formats
-  'html',
-  'pdf',
-  'yaml',
-  'yml',
-  // Font formats
-  'otf',
-  'ttf',
-  // Archives (virtual files)
-  'zip',
-];
+const {assetExts, sourceExts} = defaultConfig.resolver;
 
 /**
  * Metro configuration
@@ -46,8 +11,12 @@ const assetExts = [
  * @type {import('metro-config').MetroConfig}
  */
 const config = {
+  transformer: {
+    babelTransformerPath: require.resolve('react-native-svg-transformer'),
+  },
   resolver: {
-    sourceExts: [...defaultConfig.resolver.sourceExts, 'svg'],
+    sourceExts: [...sourceExts, 'svg'],
+    assetExts: assetExts.filter(ext => ext !== 'svg'),
     // assetExts: [defaultConfig.resolver.assetExts, ...assetExts],
   },
 };
