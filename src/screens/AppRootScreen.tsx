@@ -15,6 +15,7 @@ import {stackNavigationAnimationAnimationConfig} from '@/utils/configs/stackNavi
 import {headerConfig} from '@/utils/configs/header';
 import {useTheme} from 'react-native-paper';
 import DetailNewsScreen from './NewsScreen/DetailScreen';
+import CallCenterScreen from './HomeScreen/CallCenterScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -53,18 +54,6 @@ const ProfileIconComponent = ({focused}: {focused: boolean}) => {
     />
   );
 };
-
-const AuthNavigator = () => (
-  <Stack.Navigator>
-    <Stack.Screen
-      options={{
-        headerShown: false,
-      }}
-      name="Login"
-      component={LoginScreen}
-    />
-  </Stack.Navigator>
-);
 
 const HomeTabList = () => (
   <Tab.Navigator
@@ -106,34 +95,55 @@ const HomeTabList = () => (
   </Tab.Navigator>
 );
 const MainNavigator = () => {
+  const {isLoggedIn} = useAppSelector(state => state.authSlice);
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        name="Home"
-        component={HomeTabList}
-        options={{
-          headerShown: false,
-          headerTransparent: true,
-        }}
-      />
-      <Stack.Screen
-        name="SelfAssessment"
-        component={SelfAssessmentScreen}
-        options={{
-          ...stackNavigationAnimationAnimationConfig,
-          ...headerConfig,
-        }}
-      />
-      <Stack.Group screenOptions={{...stackNavigationAnimationAnimationConfig}}>
-        <Stack.Screen name="NewsDetail" component={DetailNewsScreen} />
-      </Stack.Group>
+      {isLoggedIn ? (
+        <>
+          <Stack.Screen
+            name="Home"
+            component={HomeTabList}
+            options={{
+              headerShown: false,
+              headerTransparent: true,
+            }}
+          />
+          <Stack.Screen
+            name="SelfAssessment"
+            component={SelfAssessmentScreen}
+            options={{
+              ...stackNavigationAnimationAnimationConfig,
+              ...headerConfig,
+            }}
+          />
+          <Stack.Screen
+            name="CallCenter"
+            component={CallCenterScreen}
+            options={{
+              ...stackNavigationAnimationAnimationConfig,
+              ...headerConfig,
+            }}
+          />
+          <Stack.Group
+            screenOptions={{...stackNavigationAnimationAnimationConfig}}>
+            <Stack.Screen name="NewsDetail" component={DetailNewsScreen} />
+          </Stack.Group>
+        </>
+      ) : (
+        <Stack.Screen
+          options={{
+            headerShown: false,
+          }}
+          name="Login"
+          component={LoginScreen}
+        />
+      )}
     </Stack.Navigator>
   );
 };
 
 const AppRootScreen = () => {
-  const {isLoggedIn} = useAppSelector(state => state.authSlice);
-  return isLoggedIn ? <MainNavigator /> : <AuthNavigator />;
+  return <MainNavigator />;
 };
 
 export default AppRootScreen;
