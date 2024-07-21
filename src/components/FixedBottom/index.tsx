@@ -1,25 +1,13 @@
-import {StyleSheet, View} from 'react-native';
+import {StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
 import React, {ReactNode} from 'react';
-import {useTheme} from 'react-native-paper';
 
 type Props = {
   children: ReactNode;
+  style?: StyleProp<ViewStyle>;
 };
 
-const FixedBottom = ({children}: Props) => {
-  const theme = useTheme();
-  return (
-    <View
-      style={[
-        styles.container,
-        {
-          borderColor: theme.colors.surfaceVariant,
-          backgroundColor: theme.colors.background,
-        },
-      ]}>
-      {children}
-    </View>
-  );
+const FixedBottom = ({children, style}: Props) => {
+  return <View style={[style, styles.container]}>{children}</View>;
 };
 
 export default FixedBottom;
