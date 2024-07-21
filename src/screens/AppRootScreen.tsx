@@ -114,6 +114,7 @@ const MainNavigator = () => {
             options={{
               ...stackNavigationAnimationAnimationConfig,
               ...headerConfig,
+              headerTitle: 'Self-Assessment',
             }}
           />
           <Stack.Screen
@@ -122,6 +123,7 @@ const MainNavigator = () => {
             options={{
               ...stackNavigationAnimationAnimationConfig,
               ...headerConfig,
+              headerTitle: 'Call Center',
             }}
           />
           <Stack.Group
