@@ -7,7 +7,7 @@ type Props = {
 };
 
 const FixedBottom = ({children, style}: Props) => {
-  return <View style={[style, styles.container]}>{children}</View>;
+  return <View style={[styles.container, style]}>{children}</View>;
 };
 
 export default FixedBottom;
