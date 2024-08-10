@@ -1,13 +1,13 @@
 export const articleListDummies = [
   {
     id: 1,
-    title: 'Kekuatan Pemberian ASI Eksklusif Selama Enam Bulan Pertama',
+    title: 'Cegah Stunting Dengan Konsumsi Pangan Lokal',
     caption: 'Interverensi Spesifik',
-    category: 'Nutrisi Bayi',
+    category: 'Pangan Lokal',
     duration: '1',
-    imageUrl: require('@/assets/images/breastfeeding.jpg'),
+    imageUrl: require('@/assets/images/pangan-lokal.jpeg'),
     description:
-      'Pemberian ASI eksklusif selama enam bulan pertama kehidupan bayi adalah salah satu cara paling efektif untuk mencegah stunting. ASI menyediakan semua nutrisi penting, antibodi, dan enzim yang dibutuhkan bayi untuk pertumbuhan dan perkembangan yang optimal. Ini membantu memperkuat sistem kekebalan tubuh, mengurangi risiko infeksi yang dapat berkontribusi pada terhambatnya pertumbuhan. \n\nOrganisasi kesehatan di seluruh dunia merekomendasikan pemberian ASI eksklusif selama enam bulan pertama, diikuti dengan melanjutkan pemberian ASI bersama dengan pengenalan makanan pendamping hingga dua tahun atau lebih. Memberikan pendidikan kepada ibu tentang manfaat menyusui dan dukungan melalui konsultan laktasi serta program komunitas dapat membantu meningkatkan angka pemberian ASI, memastikan lebih banyak anak menerima awal terbaik dalam hidup mereka.',
+      'Untuk mencegah dan mengatasi masalah gizi salah satunya dengan meningkatkan konsumsi pangan lokal. Kandungan gizi seimbang bisa didapatkan dari pangan yang banyak beredar di masyarakat. "Pangan lokal tidak hanya dari karbohidrat aja tapi bisa juga dari seafood, karena tidak ada batasan bawasannya gizi itu dari daging saja,"ungkap Kabid Konsumsi dan Keamanan Pangan DPTPH Prov Kaltim, Rika Nuzli Furkanti pada kegiatan cegah stunting dengan  pangan lokal, Jumat (18/8). Pangan lokal dapat menjadi menu dapur sehat atasi stunting.\n\nApalagi diketahui jika pangan lokal adalah sumber kebutuhan gizi ibu dan anak. Rika menerangkan gizi seimbang terdiri dari karbohidrat, protei, vitamin, mineral dan bisa dari pangan lokal seperti ubi, singkong dan jagung. "Lalu sayur sendiri bisa diolah menggunakan tepung mocaf dibuat seperti gorengan,"katanya. Selain  itu, meningkatkan gizi pihaknya telah melakukan festival pangan dengan mengenalkan pangan lokal untuk mencegah stunting. Mencegah adanya stunting sejak dini masyarakat dapat memperbanyak konsumsi makanan yang berasal dari pangan lokal yang kaya akan gizi.',
   },
   {
     id: 2,

@@ -88,10 +88,11 @@ const DetailNewsScreen = ({route, navigation}: Props) => {
   }, [navigation, theme.colors.primary]);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={[styles.container]}>
       <ParallaxScrollView
         scrollEvent={onScroll}
         backgroundColor={theme.colors.background}
+        contentBackgroundColor={theme.colors.background}
         style={{flex: 1}}
         parallaxHeaderHeight={250}
         contentContainerStyle={{

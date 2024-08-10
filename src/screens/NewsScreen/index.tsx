@@ -33,11 +33,11 @@ const NewsScreen = () => {
             <Text variant="titleLarge" style={styles.sectionHeader}>
               Rekomendasi anda
             </Text>
-            <Text
+            {/* <Text
               variant="titleMedium"
               style={[styles.sectionHeader, styles.link]}>
               Lihat semua
-            </Text>
+            </Text> */}
           </View>
           <ScrollView
             contentContainerStyle={{paddingHorizontal: 16}}

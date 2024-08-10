@@ -42,6 +42,7 @@ const LoginScreen = (_: Props) => {
             })
             .catch(() => setIsSubmitting(false));
         } catch (error) {
+          setIsSubmitting(false);
           console.log(error);
         }
       })

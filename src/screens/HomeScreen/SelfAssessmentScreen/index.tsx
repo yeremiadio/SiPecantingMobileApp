@@ -35,11 +35,11 @@ const getAssessmentCategory = (totalScore: number): string => {
   const lowThreshold = questionDummies.length * 2;
 
   if (totalScore <= lowThreshold) {
-    return ScoreEnum.LOW;
+    return ScoreEnum.HIGH;
   } else if (totalScore <= highThreshold) {
     return ScoreEnum.MEDIUM;
   } else {
-    return ScoreEnum.HIGH;
+    return ScoreEnum.LOW;
   }
 };
 
@@ -47,6 +47,7 @@ const SelfAssessmentScreen = (_: Props) => {
   const initAnswer = new Array<string>(0).fill('');
   const [answers, setAnswers] = useState<string[]>(initAnswer);
   const [result, setResult] = useState<string | null>(null);
+  const theme = useTheme();
   const [componentIcon, setComponentIcon] = useState<React.FC<SvgProps>>();
   const [visible, setVisible] = React.useState(false);
   const showModal = () => setVisible(true);
@@ -104,14 +105,16 @@ const SelfAssessmentScreen = (_: Props) => {
     }
     setAnswers(initAnswer);
   };
-  const theme = useTheme();
   return (
     <View style={styles.container}>
       <Portal>
         <Modal
           visible={visible}
           onDismiss={hideModal}
-          contentContainerStyle={styles.modalContainer}>
+          contentContainerStyle={[
+            styles.modalContainer,
+            {backgroundColor: theme.colors.background},
+          ]}>
           {componentIcon as ReactNode}
           <Text
             variant="bodySmall"
@@ -199,7 +202,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
   modalContainer: {
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
     padding: 20,
     marginHorizontal: 16,
     borderRadius: 8,
