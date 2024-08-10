@@ -44,8 +44,8 @@ const DetailNewsScreen = ({route, navigation}: Props) => {
 
   const handleShare = async () =>
     Share.open({
-      message: 'Si Pecanting Mobile Apps',
-      url: 'https://play.google.com/store',
+      title: detailNews?.title,
+      message: detailNews?.description,
     })
       .then(res => {
         console.log(res);
