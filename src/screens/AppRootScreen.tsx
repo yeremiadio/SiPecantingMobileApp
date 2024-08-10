@@ -1,5 +1,4 @@
 import React from 'react';
-import LoginScreen from './LoginScreen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {RootStackParamList, RootTabParamList} from '@/types/reactNavigation';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -16,6 +15,7 @@ import {headerConfig} from '@/utils/configs/header';
 import {useTheme} from 'react-native-paper';
 import DetailNewsScreen from './NewsScreen/DetailScreen';
 import CallCenterScreen from './HomeScreen/CallCenterScreen';
+import LandingScreen from './LandingScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -136,8 +136,8 @@ const MainNavigator = () => {
           options={{
             headerShown: false,
           }}
-          name="Login"
-          component={LoginScreen}
+          name="Landing"
+          component={LandingScreen}
         />
       )}
     </Stack.Navigator>
