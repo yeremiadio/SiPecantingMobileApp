@@ -28,7 +28,7 @@ const MenuIconComponent = ({focused}: {focused: boolean}) => {
   const theme = useTheme();
   return (
     <Icon
-      color={focused ? theme.colors.secondary : undefined}
+      color={theme.colors.secondary}
       name={focused ? 'home-variant' : 'home-variant-outline'}
       size={28}
     />
@@ -38,7 +38,7 @@ const NewsIconComponent = ({focused}: {focused: boolean}) => {
   const theme = useTheme();
   return (
     <Icon
-      color={focused ? theme.colors.secondary : undefined}
+      color={theme.colors.secondary}
       name={focused ? 'text-box' : 'text-box-outline'}
       size={28}
     />
@@ -48,7 +48,7 @@ const ProfileIconComponent = ({focused}: {focused: boolean}) => {
   const theme = useTheme();
   return (
     <Icon
-      color={focused ? theme.colors.secondary : undefined}
+      color={theme.colors.secondary}
       name={focused ? 'account-circle' : 'account-circle-outline'}
       size={28}
     />
