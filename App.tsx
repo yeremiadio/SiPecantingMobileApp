@@ -1,9 +1,7 @@
 import * as React from 'react';
-import {useColorScheme} from 'react-native';
 import {
   adaptNavigationTheme,
   configureFonts,
-  MD3DarkTheme,
   MD3LightTheme,
   PaperProvider,
 } from 'react-native-paper';
@@ -21,12 +19,8 @@ import {ThemeProp} from 'react-native-paper/lib/typescript/types';
 const store = setupStore();
 
 export const App = () => {
-  const colorScheme = useColorScheme();
-  const paperTheme =
-    colorScheme === 'dark'
-      ? {...MD3DarkTheme, colors: darkTheme.colors}
-      : {...MD3LightTheme, colors: lightTheme.colors};
-  const {LightTheme, DarkTheme} = adaptNavigationTheme({
+  const paperTheme = {...MD3LightTheme, colors: lightTheme.colors};
+  const {LightTheme} = adaptNavigationTheme({
     reactNavigationLight: {
       dark: false,
       colors: {
@@ -36,7 +30,7 @@ export const App = () => {
       },
     },
     reactNavigationDark: {
-      dark: true,
+      dark: false,
       colors: {
         ...DefaultTheme.colors,
         primary: darkTheme.colors.primary,
@@ -54,8 +48,7 @@ export const App = () => {
   return (
     <Provider store={store}>
       <PaperProvider theme={theme}>
-        <NavigationContainer
-          theme={colorScheme === 'dark' ? DarkTheme : LightTheme}>
+        <NavigationContainer theme={LightTheme}>
           <AppRootScreen />
         </NavigationContainer>
       </PaperProvider>
