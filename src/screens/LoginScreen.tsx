@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {ScrollView, StyleSheet, View} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-
+import Toast from 'react-native-simple-toast';
 import Fonts from '@/assets/styles/fonts';
 
 import {RootStackParamList} from '@/types/reactNavigation';
@@ -16,9 +16,9 @@ import {getUserDetail} from '@/api/user';
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
 const LoginScreen = (_: Props) => {
-  const [email, setEmail] = useState<string>('pecantingadmin@gmail.com');
+  const [email, setEmail] = useState<string>('sipecanting@gmail.com');
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [password, setPassword] = useState<string>('password1234');
+  const [password, setPassword] = useState<string>('password');
   const dispatch = useAppDispatch();
   const handleLogin = async () => {
     setIsSubmitting(true);
@@ -42,11 +42,21 @@ const LoginScreen = (_: Props) => {
             })
             .catch(() => setIsSubmitting(false));
         } catch (error) {
+          Toast.show(
+            'Error while getting user detail.Please try again.',
+            Toast.SHORT,
+            {
+              tapToDismissEnabled: true,
+            },
+          );
           setIsSubmitting(false);
           console.log(error);
         }
       })
       .catch(error => {
+        Toast.show('Failed to login. Please try again.', Toast.SHORT, {
+          tapToDismissEnabled: true,
+        });
         console.log(error);
         setIsSubmitting(false);
       })
