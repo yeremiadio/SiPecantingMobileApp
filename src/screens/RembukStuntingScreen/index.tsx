@@ -90,8 +90,8 @@ const RembukStuntingScreen = ({navigation}: Props) => {
           return isLoading ? (
             <ActivityIndicator style={{marginTop: 15}} />
           ) : (
-            <View>
-              <Text>Data Not Found</Text>
+            <View style={{marginTop: 15}}>
+              <Text>Belum ada pembahasan</Text>
             </View>
           );
         }}

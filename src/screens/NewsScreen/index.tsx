@@ -5,7 +5,7 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useMemo} from 'react';
 import {ActivityIndicator, Text} from 'react-native-paper';
 import Fonts from '@/assets/styles/fonts';
 import ExploreCard from '@/components/pages/news/ExploreCard';
@@ -14,6 +14,8 @@ import {useGetArticlesQuery} from '@/store/articleStoreApi';
 const NewsScreen = () => {
   const {data, isLoading, refetch} = useGetArticlesQuery({});
   const [refreshing, setRefreshing] = React.useState(false);
+
+  const dataMemo = useMemo(() => data ?? [], [data, isLoading]);
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
@@ -41,8 +43,8 @@ const NewsScreen = () => {
             <ScrollView
               contentContainerStyle={{paddingHorizontal: 16}}
               showsHorizontalScrollIndicator={false}>
-              {data?.map(item => (
-                <ExploreCard key={item.id} {...item} />
+              {dataMemo?.map(item => (
+                <ExploreCard key={item.id} {...item} isExternalImage />
               ))}
             </ScrollView>
           )}

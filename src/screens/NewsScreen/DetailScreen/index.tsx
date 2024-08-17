@@ -5,7 +5,7 @@ import {RootStackParamList} from '@/types/reactNavigation';
 import {RouteProp} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
-import React, {useLayoutEffect, useMemo} from 'react';
+import React, {useCallback, useLayoutEffect, useMemo} from 'react';
 import {
   Dimensions,
   SafeAreaView,
@@ -13,7 +13,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {Chip, Text, useTheme} from 'react-native-paper';
+import {ActivityIndicator, Chip, Text, useTheme} from 'react-native-paper';
 import Animated, {useSharedValue, withTiming} from 'react-native-reanimated';
 import Share from 'react-native-share';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -36,21 +36,24 @@ type Props = {
 const DetailNewsScreen = ({route, navigation}: Props) => {
   const {id} = route.params;
   const theme = useTheme();
-  const {data} = useGetArticleByIdQuery({id}, {skip: !id});
-  const detailNews = useMemo(() => data ?? undefined, [id]);
+  const {data, isLoading} = useGetArticleByIdQuery({id}, {skip: !id});
+  const detailNews = useMemo(() => data ?? undefined, [data, isLoading]);
   const opacity = useSharedValue(0);
 
-  const handleShare = async () =>
-    Share.open({
-      title: detailNews?.title,
-      message: detailNews?.content,
-    })
-      .then(res => {
-        console.log(res);
+  const handleShare = useCallback(
+    async () =>
+      Share.open({
+        title: detailNews?.title,
+        message: detailNews?.content + `\n ${detailNews?.thumbnailImage}`,
       })
-      .catch(err => {
-        err && console.log(err);
-      });
+        .then(res => {
+          console.log(res);
+        })
+        .catch(err => {
+          err && console.log(err);
+        }),
+    [detailNews],
+  );
 
   const onScroll = (event: any) => {
     const y = event.nativeEvent.contentOffset.y;
@@ -87,73 +90,80 @@ const DetailNewsScreen = ({route, navigation}: Props) => {
 
   return (
     <SafeAreaView style={[styles.container]}>
-      <ParallaxScrollView
-        scrollEvent={onScroll}
-        backgroundColor={theme.colors.background}
-        contentBackgroundColor={theme.colors.background}
-        style={{flex: 1}}
-        parallaxHeaderHeight={250}
-        contentContainerStyle={{
-          borderTopRightRadius: 18,
-          borderTopLeftRadius: 18,
-          bottom: 12,
-        }}
-        stickyHeaderHeight={56}
-        renderBackground={() => (
-          <Animated.Image
-            source={
-              detailNews?.thumbnailImage
-                ? {uri: detailNews.thumbnailImage}
-                : require('@/assets/images/no_image.jpg')
-            }
-            style={[styles.image]}
-          />
-        )}
-        renderStickyHeader={() => (
-          <View key="sticky-header" style={styles.stickySection}>
-            <Text variant="titleMedium" ellipsizeMode="tail" numberOfLines={1}>
-              {detailNews?.title}
-            </Text>
-          </View>
-        )}>
-        <View
-          style={{
-            flex: 1,
-            padding: 16,
-          }}>
+      {isLoading ? (
+        <ActivityIndicator />
+      ) : (
+        <ParallaxScrollView
+          scrollEvent={onScroll}
+          backgroundColor={theme.colors.background}
+          contentBackgroundColor={theme.colors.background}
+          style={{flex: 1}}
+          parallaxHeaderHeight={250}
+          contentContainerStyle={{
+            borderTopRightRadius: 18,
+            borderTopLeftRadius: 18,
+            bottom: 12,
+          }}
+          stickyHeaderHeight={56}
+          renderBackground={() => (
+            <Animated.Image
+              source={
+                detailNews?.thumbnailImage
+                  ? {uri: detailNews.thumbnailImage}
+                  : require('@/assets/images/no_image.jpg')
+              }
+              style={[styles.image]}
+            />
+          )}
+          renderStickyHeader={() => (
+            <View key="sticky-header" style={styles.stickySection}>
+              <Text
+                variant="titleMedium"
+                ellipsizeMode="tail"
+                numberOfLines={1}>
+                {detailNews?.title}
+              </Text>
+            </View>
+          )}>
           <View
             style={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              marginBottom: 8,
-              gap: 8,
+              flex: 1,
+              padding: 16,
             }}>
-            <View style={styles.cardChipWrapper}>
-              <Chip
-                theme={{roundness: 10}}
-                style={styles.cardChip}
-                ellipsizeMode="tail"
-                mode="flat">
-                {detailNews?.category?.name}
-              </Chip>
+            <View
+              style={{
+                display: 'flex',
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginBottom: 8,
+                gap: 8,
+              }}>
+              <View style={styles.cardChipWrapper}>
+                <Chip
+                  theme={{roundness: 10}}
+                  style={styles.cardChip}
+                  ellipsizeMode="tail"
+                  mode="flat">
+                  {detailNews?.category?.name}
+                </Chip>
+              </View>
             </View>
+            <Text
+              variant="headlineMedium"
+              style={{fontFamily: Fonts.InterBold, marginBottom: 8}}>
+              {detailNews?.title}
+            </Text>
+            <Text style={{textAlign: 'justify'}} variant="bodyMedium">
+              {detailNews?.content}
+            </Text>
           </View>
-          <Text
-            variant="headlineMedium"
-            style={{fontFamily: Fonts.InterBold, marginBottom: 8}}>
-            {detailNews?.title}
-          </Text>
-          <Text style={{textAlign: 'justify'}} variant="bodyMedium">
-            {detailNews?.content}
-          </Text>
-        </View>
-        {/* <ScrollView horizontal>
+          {/* <ScrollView horizontal>
           {articleListDummies.map(item => (
             <ExploreCard key={item.id} {...item} />
           ))}
         </ScrollView> */}
-      </ParallaxScrollView>
+        </ParallaxScrollView>
+      )}
     </SafeAreaView>
   );
 };

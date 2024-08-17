@@ -13,6 +13,7 @@ const ExploreCard = ({
   title,
   category,
   createdAt,
+  caption,
   thumbnailImage,
   isExternalImage,
 }: Props) => {
@@ -33,6 +34,7 @@ const ExploreCard = ({
         />
         {/* <View></View> */}
         <View style={styles.cardContentWrapper}>
+          <Text style={styles.cardContentSmallTitle}>{caption}</Text>
           <Text
             ellipsizeMode="tail"
             numberOfLines={2}

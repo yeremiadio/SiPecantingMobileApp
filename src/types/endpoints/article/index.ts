@@ -6,6 +6,7 @@ export interface IArticle {
   updatedAt: Date;
   title: string;
   content: string;
+  caption: string;
   thumbnailImage: string | null;
   authorId: number;
   categoryId: number | null;
