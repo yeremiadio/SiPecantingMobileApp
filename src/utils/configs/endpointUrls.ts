@@ -8,6 +8,7 @@ export const baseUrls = {
   user: 'users',
   group: 'groups',
   message: 'messages',
+  articles: 'articles',
 };
 export const authUrls = {
   login: baseUrls.auth + '/login',

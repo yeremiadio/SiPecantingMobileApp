@@ -1,7 +1,7 @@
 import Fonts from '@/assets/styles/fonts';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
+import {useGetArticleByIdQuery} from '@/store/articleStoreApi';
 import {RootStackParamList} from '@/types/reactNavigation';
-import {articleListDummies} from '@/utils/dummies/articleDummies';
 import {RouteProp} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
@@ -36,16 +36,14 @@ type Props = {
 const DetailNewsScreen = ({route, navigation}: Props) => {
   const {id} = route.params;
   const theme = useTheme();
-  const detailNews = useMemo(
-    () => articleListDummies.find(item => item.id === id),
-    [id],
-  );
+  const {data} = useGetArticleByIdQuery({id}, {skip: !id});
+  const detailNews = useMemo(() => data ?? undefined, [id]);
   const opacity = useSharedValue(0);
 
   const handleShare = async () =>
     Share.open({
       title: detailNews?.title,
-      message: detailNews?.description,
+      message: detailNews?.content,
     })
       .then(res => {
         console.log(res);
@@ -104,9 +102,9 @@ const DetailNewsScreen = ({route, navigation}: Props) => {
         renderBackground={() => (
           <Animated.Image
             source={
-              detailNews?.isExternalImage
-                ? {uri: detailNews.imageUrl}
-                : detailNews?.imageUrl
+              detailNews?.thumbnailImage
+                ? {uri: detailNews.thumbnailImage}
+                : require('@/assets/images/no_image.jpg')
             }
             style={[styles.image]}
           />
@@ -137,12 +135,9 @@ const DetailNewsScreen = ({route, navigation}: Props) => {
                 style={styles.cardChip}
                 ellipsizeMode="tail"
                 mode="flat">
-                {detailNews?.category}
+                {detailNews?.category?.name}
               </Chip>
             </View>
-            <Text variant="bodySmall" style={{}}>
-              {detailNews?.caption}
-            </Text>
           </View>
           <Text
             variant="headlineMedium"
@@ -150,7 +145,7 @@ const DetailNewsScreen = ({route, navigation}: Props) => {
             {detailNews?.title}
           </Text>
           <Text style={{textAlign: 'justify'}} variant="bodyMedium">
-            {detailNews?.description}
+            {detailNews?.content}
           </Text>
         </View>
         {/* <ScrollView horizontal>

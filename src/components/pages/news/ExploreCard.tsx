@@ -3,24 +3,17 @@ import React from 'react';
 import Fonts from '@/assets/styles/fonts';
 import {Chip, Text, TouchableRipple} from 'react-native-paper';
 import {useNavigation} from '@react-navigation/native';
+import {IArticle} from '@/types/endpoints/article';
+import timeAgo from '@/utils/functions/timeAgo';
 
-type Props = {
-  id: number;
-  imageUrl?: string;
-  caption: string;
-  title: string;
-  duration: string;
-  category: string;
-  isExternalImage?: boolean;
-};
+type Props = IArticle & {isExternalImage?: boolean};
 
 const ExploreCard = ({
   id,
   title,
-  duration,
   category,
-  caption,
-  imageUrl,
+  createdAt,
+  thumbnailImage,
   isExternalImage,
 }: Props) => {
   const navigation = useNavigation();
@@ -33,14 +26,13 @@ const ExploreCard = ({
           style={styles.cardImage}
           alt="explore-card"
           source={
-            isExternalImage
-              ? {uri: imageUrl}
-              : imageUrl ?? require('@/assets/images/no_image.jpg')
+            isExternalImage && thumbnailImage
+              ? {uri: thumbnailImage}
+              : require('@/assets/images/no_image.jpg')
           }
         />
         {/* <View></View> */}
         <View style={styles.cardContentWrapper}>
-          <Text style={styles.cardContentSmallTitle}>{caption}</Text>
           <Text
             ellipsizeMode="tail"
             numberOfLines={2}
@@ -55,11 +47,11 @@ const ExploreCard = ({
                 style={styles.cardChip}
                 ellipsizeMode="tail"
                 mode="flat">
-                {category}
+                {category?.name}
               </Chip>
             </View>
             <Text style={styles.cardFooterContentDuration} variant="bodySmall">
-              {duration} hari lalu
+              {timeAgo(new Date(createdAt))}
             </Text>
           </View>
         </View>

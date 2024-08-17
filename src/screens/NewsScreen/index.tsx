@@ -6,17 +6,18 @@ import {
   View,
 } from 'react-native';
 import React from 'react';
-import {Text} from 'react-native-paper';
+import {ActivityIndicator, Text} from 'react-native-paper';
 import Fonts from '@/assets/styles/fonts';
 import ExploreCard from '@/components/pages/news/ExploreCard';
-import {articleListDummies} from '@/utils/dummies/articleDummies';
+import {useGetArticlesQuery} from '@/store/articleStoreApi';
 
 const NewsScreen = () => {
-  const dummyData = articleListDummies;
+  const {data, isLoading, refetch} = useGetArticlesQuery({});
   const [refreshing, setRefreshing] = React.useState(false);
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
+    refetch();
     setTimeout(() => {
       setRefreshing(false);
     }, 2000);
@@ -33,19 +34,18 @@ const NewsScreen = () => {
             <Text variant="titleLarge" style={styles.sectionHeader}>
               Rekomendasi anda
             </Text>
-            {/* <Text
-              variant="titleMedium"
-              style={[styles.sectionHeader, styles.link]}>
-              Lihat semua
-            </Text> */}
           </View>
-          <ScrollView
-            contentContainerStyle={{paddingHorizontal: 16}}
-            showsHorizontalScrollIndicator={false}>
-            {dummyData.map(item => (
-              <ExploreCard key={item.id} {...item} />
-            ))}
-          </ScrollView>
+          {isLoading ? (
+            <ActivityIndicator />
+          ) : (
+            <ScrollView
+              contentContainerStyle={{paddingHorizontal: 16}}
+              showsHorizontalScrollIndicator={false}>
+              {data?.map(item => (
+                <ExploreCard key={item.id} {...item} />
+              ))}
+            </ScrollView>
+          )}
         </View>
       </ScrollView>
       {/* */}

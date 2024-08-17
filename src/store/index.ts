@@ -2,10 +2,12 @@ import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import {useDispatch} from 'react-redux';
 import authSlice from './slices/authSlice';
 import {groupStoreApi} from './groupStoreApi';
+import {articleStoreApi} from './articleStoreApi';
 
 const rootReducer = combineReducers({
   authSlice: authSlice,
   [groupStoreApi.reducerPath]: groupStoreApi.reducer,
+  [articleStoreApi.reducerPath]: articleStoreApi.reducer,
 });
 
 export const setupStore = () => {
@@ -15,7 +17,7 @@ export const setupStore = () => {
       // adding the api middleware enables caching, invalidation, polling and other features of `rtk-query`
       getDefaultMiddleware({
         serializableCheck: false,
-      }).concat([groupStoreApi.middleware]),
+      }).concat([groupStoreApi.middleware, articleStoreApi.middleware]),
   });
 };
 
