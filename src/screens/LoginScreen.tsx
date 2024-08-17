@@ -5,7 +5,7 @@ import Toast from 'react-native-simple-toast';
 import Fonts from '@/assets/styles/fonts';
 
 import {RootStackParamList} from '@/types/reactNavigation';
-import {Button, Text} from 'react-native-paper';
+import {Button, Text, useTheme} from 'react-native-paper';
 import InputText from '@/components/inputs/InputText';
 import IllustationMotherSvg from '@/assets/svg/Motherhood-amico.svg';
 import {login} from '@/api/auth';
@@ -15,10 +15,11 @@ import {signIn} from '@/store/slices/authSlice';
 import {getUserDetail} from '@/api/user';
 type Props = NativeStackScreenProps<RootStackParamList, 'Login'>;
 
-const LoginScreen = (_: Props) => {
+const LoginScreen = ({navigation}: Props) => {
   const [email, setEmail] = useState<string>('sipecanting@gmail.com');
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
   const [password, setPassword] = useState<string>('password');
+  const theme = useTheme();
   const dispatch = useAppDispatch();
   const handleLogin = async () => {
     setIsSubmitting(true);
@@ -106,6 +107,16 @@ const LoginScreen = (_: Props) => {
           theme={{roundness: 10}}>
           Log in
         </Button>
+        <View style={{marginTop: 12}}>
+          <Text style={{textAlign: 'center'}}>
+            Are you a new user?{' '}
+            <Text
+              onPress={() => navigation.navigate('Register')}
+              style={{color: theme.colors.primary, fontWeight: 'bold'}}>
+              Sign Up
+            </Text>
+          </Text>
+        </View>
       </ScrollView>
     </View>
   );

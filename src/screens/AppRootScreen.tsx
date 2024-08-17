@@ -18,6 +18,7 @@ import DetailNewsScreen from './NewsScreen/DetailScreen';
 import CallCenterScreen from './HomeScreen/CallCenterScreen';
 import RembukStuntingScreen from './RembukStuntingScreen';
 import DetailRembukStuntingScreen from './RembukStuntingScreen/DetailRembukStuntingScreen';
+import RegisterScreen from './RegisterScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -151,13 +152,22 @@ const MainNavigator = () => {
           </Stack.Group>
         </>
       ) : (
-        <Stack.Screen
-          options={{
-            headerShown: false,
-          }}
-          name="Login"
-          component={LoginScreen}
-        />
+        <>
+          <Stack.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="Login"
+            component={LoginScreen}
+          />
+          <Stack.Screen
+            options={{
+              headerShown: false,
+            }}
+            name="Register"
+            component={RegisterScreen}
+          />
+        </>
       )}
     </Stack.Navigator>
   );

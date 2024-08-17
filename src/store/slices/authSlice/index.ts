@@ -4,6 +4,9 @@ interface AuthState {
   isLoggedIn: boolean;
   id: number | null;
   fullName: string | null;
+  shortName: string | null;
+  age: number | null;
+  phoneNumber: string | null;
 }
 
 const initialState: Partial<AuthState> = {

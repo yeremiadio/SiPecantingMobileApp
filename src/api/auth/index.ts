@@ -1,6 +1,7 @@
 import axiosInstance from '@/api/axiosInstance';
+import {TUserPayloadWithDetail} from '@/types/endpoints/auth';
 import {IAuthUser} from '@/types/endpoints/user';
-import {authUrls} from '@/utils/configs/endpointUrls';
+import {authUrls, userUrls} from '@/utils/configs/endpointUrls';
 import {AxiosResponse} from 'axios';
 
 type TAuthCredentialObject = {
@@ -13,4 +14,14 @@ const login = (
 ): Promise<AxiosResponse<IAuthUser>> =>
   axiosInstance.post(authUrls.login, data);
 
-export {login};
+const register = (
+  data: Pick<TUserPayloadWithDetail, 'email' | 'password'>,
+): Promise<AxiosResponse<IAuthUser>> =>
+  axiosInstance.post(authUrls.register, data);
+
+const createUserDetail = (
+  data: Omit<TUserPayloadWithDetail, 'email' | 'password'>,
+): Promise<AxiosResponse<TUserPayloadWithDetail & {id: number}>> =>
+  axiosInstance.post(userUrls.detail, data);
+
+export {login, register, createUserDetail};
