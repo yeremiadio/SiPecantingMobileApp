@@ -65,6 +65,7 @@ const HomeScreen = ({navigation}: Props) => {
       icon: (
         <RembukStuntingIcon width={56} height={56} style={{marginBottom: 8}} />
       ),
+      routes: 'RembukStuntingList',
     },
     {
       id: 4,

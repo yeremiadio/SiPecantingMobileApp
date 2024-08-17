@@ -29,9 +29,10 @@ const LoginScreen = (_: Props) => {
           await AsyncStorage.setItem('token', authData.token);
           await AsyncStorage.setItem('userId', authData.id.toString());
           await getUserDetail({id: authData.id})
-            .then(responseUserData => {
+            .then(async responseUserData => {
               setIsSubmitting(false);
               const user = responseUserData.data.data;
+              await AsyncStorage.setItem('userDetailId', user.id.toString());
               dispatch(
                 signIn({
                   id: authData.id,

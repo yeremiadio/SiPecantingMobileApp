@@ -4,6 +4,10 @@ export type RootStackParamList = {
   SelfAssessment: undefined;
   CallCenter: undefined;
   NewsList: undefined;
+  RembukStuntingList: undefined;
+  RembukStuntingDetail: {
+    id?: number;
+  };
   NewsDetail: {
     id?: number;
   };

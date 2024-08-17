@@ -16,6 +16,8 @@ import {headerConfig} from '@/utils/configs/header';
 import {useTheme} from 'react-native-paper';
 import DetailNewsScreen from './NewsScreen/DetailScreen';
 import CallCenterScreen from './HomeScreen/CallCenterScreen';
+import RembukStuntingScreen from './RembukStuntingScreen';
+import DetailRembukStuntingScreen from './RembukStuntingScreen/DetailRembukStuntingScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -106,6 +108,23 @@ const MainNavigator = () => {
             options={{
               headerShown: false,
               headerTransparent: true,
+            }}
+          />
+          <Stack.Screen
+            name="RembukStuntingList"
+            component={RembukStuntingScreen}
+            options={{
+              ...stackNavigationAnimationAnimationConfig,
+              ...headerConfig,
+              headerTitle: 'Rembuk Stunting',
+            }}
+          />
+          <Stack.Screen
+            name="RembukStuntingDetail"
+            component={DetailRembukStuntingScreen}
+            options={{
+              ...stackNavigationAnimationAnimationConfig,
+              ...headerConfig,
             }}
           />
           <Stack.Screen
